@@ -28,6 +28,27 @@ Output: object
 }
 ```
 
+Why is this useful? Imagine implementing the actual commands like so:
+
+```javascript
+//Define command handlers
+var commands = {
+	'{count}{motion}': function(count, motion) {
+		while(ct--) this.exec(motion);
+	}
+};
+```
+
+```javascript
+//Use the parser to map keystrokes to handlers
+var keyBuffer = '';
+vim.on('key', function(key) {
+	keyBuffer += key;
+	var command = parser.parse(keyBuffer);
+	if(command.description in commands) commands[command.description].apply(vim,command.value
+});
+```
+
 
 ##TODO:
 
