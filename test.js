@@ -7,12 +7,6 @@ parse = function() {
 var expect = require('chai').expect
 
 
-it('recognizes counts alone', function() {
-	var command = parse('10');
-	console.log(command);
-	expect(command.description).equal('{count}');
-});
-
 
 describe('getLastOperator', function() {
 	var operators = [
@@ -35,7 +29,7 @@ describe('getLastOperator', function() {
 	for(var i in operators) {
 		var op = operators[i];
 		it('catches ' + op, (function() { 
-			var res = parser.getLastOperator(op) === op; return function() { 
+			var res = parser.getLastOperator(op).value === op; return function() { 
 				expect(res).equal(true);
 			}; 
 		})());
@@ -92,10 +86,52 @@ describe('getLastMotion', function() {
 	for(var i in motions) {
 		var motion = motions[i]
 		it('catches ' + motion, (function() { 
-			var res = parser.getLastMotion(motion) === motion; return function() { 
+			var res = parser.getLastMotion(motion).value === motion; return function() { 
 				expect(res).equal(true);
 			}; 
 		})());
 	}
+
+});
+
+describe('getLastCount', function() {
+	it('retrieves 1', function() {
+		expect(parser.getLastCount('1').value).equal(1);
+	});
+});
+
+
+describe('parse', function() {
+	var x = parse('h');	
+
+	it('catches a single motion', function() {
+		expect(parse('h').value[0]).equal('h')
+		expect(parse('fh').value[0]).equal('fh')
+		expect(parse('0').value[0]).equal('0')
+		expect(parse('$').value[0]).equal('$')
+	});
+
+	it('catches a single operator', function() {
+		expect(parse('c').value[0]).equal('c')
+		expect(parse('y').value[0]).equal('y')
+		expect(parse('d').value[0]).equal('d')
+	});
+
+	it('catches a single count', function() {
+		expect(parse('10').value[0]).equal(10)
+		expect(parse('77').value[0]).equal(77)
+		expect(parse('800').value[0]).equal(800)
+	});
+
+
+	it('catches a count and a motion', function() {
+		var command = parse('2h');
+		expect(command.description).equal('{count}{motion}');
+	});
+
+	it('catches a count, operator, and motion', function() {
+		var command = parse('2ch');
+		expect(command.description).equal('{count}{operator}{motion}');
+	});
 
 });

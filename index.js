@@ -11,16 +11,35 @@ output: object containing the interpreted string and an array with each element
 */
 Parser.prototype.parse = function(command) {
 
-var out;
-	var ct =	/^([1-9]+[0-9]*)$/.exec(command);
+	var motion = this.getLastMotion(command);
 
-	if(ct) {
-		out = {
-			value: [ parseInt(ct[1]) ],
-			description: '{count}'
-		};
-		return out;
+	var prefix = command;
+
+	var command = {
+		description: '',
+		value: [],
+		prefix: ''
+	};
+	
+
+	var next;
+
+	while(prefix.length) {
+		next = this.getLastCount(prefix) || this.getLastMotion(prefix) || this.getLastOperator(prefix);
+		if(!next) break
+		prefix = next.prefix;	
+		command.description = next.description + command.description;
+		command.value.unshift(next.value);
+		command.prefix = next.prefix;
+		console.log(next);
 	}
+	return command;
+
+
+
+	var x = this.getLastCount(command) || this.getLastMotion(command) ||	this.getLastOperator(command);
+
+		
 		
 /*
 
@@ -38,11 +57,16 @@ var out;
 	
 };
 //Test for operator
-var opTest = new RegExp('\(c\|d\|y\|~\|g~\|gu\|gU\|!\|=\|gg\|g\\?\|>\|<\|zf\|g@\)$');
+var opTest = new RegExp('\(\.\*\?\)\(c\|d\|y\|~\|g~\|gu\|gU\|!\|=\|gg\|g\\?\|>\|<\|zf\|g@\)$');
 /** Determines whether command is an operator, returning it if so */
 Parser.prototype.getLastOperator = function(command) {
 	var op = opTest.exec(command)
-	return op ? op[1] : false;
+	if(!op) return;
+	return {
+		description: '{operator}',
+		value: op[2],
+		prefix: op[1]
+	};
 };
 
 /** Get motions, of which there are a variety
@@ -56,8 +80,28 @@ text object motions:
 
 */
 var motions = ['h','l','0','\\$','\\^','g_','\\|','\(?:f\|F\|t\|T\)\(\?\:\[\\S\]\)',';',',','k','j','\\+','-','_','G','e','E','w','W','b','B','ge','gE','\\(','\\)','\\{','\\}','\\]\\]','\\]\\[','\\[\\[','\\[\\]'];
-var motionTest = new RegExp('\(' + motions.join('\|') + '\)\$');
+var motionTest = new RegExp('\(\.\*\?\)\(' + motions.join('\|') + '\)\$');
 Parser.prototype.getLastMotion = function(command) {
 	var motion = motionTest.exec(command);	
-	return motion ? motion[1] : false;	
+	if(!motion) return;
+	return {
+		description: '{motion}',
+		value: motion[2],
+		prefix: motion[1]
+	}
 };
+
+
+var countTest = /(.*?)([1-9]+[0-9]*)$/
+Parser.prototype.getLastCount = function(command) {
+	var countResult = countTest.exec(command);
+	if(!countResult) return;
+	return {
+		description: '{count}',
+		value: parseInt(countResult[2]),
+		prefix: countResult[1]
+	};
+};
+
+
+
