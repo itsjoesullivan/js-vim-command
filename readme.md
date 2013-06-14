@@ -6,14 +6,17 @@ Vim's commands are powerful. This library is meant to parse those that fit a gen
 
 As defined in [vim docs](http://vimdoc.sourceforge.net/htmldoc/intro.html#notation)
 
+##Usage
 
+var Parser = require('vim-command-parser'),
+	parser = new Parser();
 
 ##Format
 
 Input: command string
 
 ```javascript
-parse('c3G')
+parser.parse('c3G')
 ```
 
 Output: object
