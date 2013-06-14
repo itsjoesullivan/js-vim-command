@@ -17,8 +17,7 @@ Parser.prototype.parse = function(command) {
 
 	var command = {
 		description: '',
-		value: [],
-		prefix: ''
+		value: []
 	};
 	
 
@@ -31,7 +30,6 @@ Parser.prototype.parse = function(command) {
 		command.description = next.description + command.description;
 		command.value.unshift(next.value);
 		command.prefix = next.prefix;
-		console.log(next);
 	}
 	return command;
 
