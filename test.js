@@ -36,8 +36,66 @@ describe('getLastOperator', function() {
 		var op = operators[i];
 		it('catches ' + op, (function() { 
 			var res = parser.getLastOperator(op) === op; return function() { 
-				return res; 
+				expect(res).equal(true);
 			}; 
 		})());
 	}
+});
+
+describe('getLastMotion', function() {
+	var motions = [
+		'h',
+		'l',
+		'0',
+		'$',
+		'^',
+		'g_',
+		'|',
+		'fa',
+		'f9',
+		'f_',
+		'Fg',
+		'F2',
+		'F?',
+		'ta',
+		't9',
+		't_',
+		'Tg',
+		'T2',
+		'T?',
+		';',
+		',',
+		'k',
+		'j',
+		'-',
+		'+',
+		'_',
+		'G',
+		'e',
+		'E',
+		'w',
+		'W',
+		'b',
+		'B',
+		'ge',
+		'gE',
+		'(',
+		')',
+		'{',
+		'}',
+		']]',
+		'][',
+		'[[',
+		'[]'
+	
+	];
+	for(var i in motions) {
+		var motion = motions[i]
+		it('catches ' + motion, (function() { 
+			var res = parser.getLastMotion(motion) === motion; return function() { 
+				expect(res).equal(true);
+			}; 
+		})());
+	}
+
 });
