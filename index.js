@@ -37,7 +37,12 @@ var out;
 */
 	
 };
-
-
+//Test for operator
+var opTest = new RegExp('\(c\|d\|y\|~\|g~\|gu\|gU\|!\|=\|gg\|g?\|>\|<\|zf\|g@\)$');
+/** Determines whether command is an operator, returning it if so */
+Parser.prototype.getLastOperator = function(command) {
+	var op = opTest.exec(command)
+	return op[1];
+};
 
 

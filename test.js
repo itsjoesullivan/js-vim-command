@@ -14,3 +14,30 @@ it('recognizes counts alone', function() {
 });
 
 
+describe('getLastOperator', function() {
+	var operators = [
+		'c',
+		'd',
+		'y',
+		'~',
+		'g~',
+		'gu',
+		'gU',
+		'!',
+		'=',
+		'gg',
+		'g?',
+		'>',
+		'<',
+		'zf',
+		'g@'
+	]
+	for(var i in operators) {
+		var op = operators[i];
+		it('catches ' + op, (function() { 
+			var res = parser.getLastOperator(op) === op; return function() { 
+				return res; 
+			}; 
+		})());
+	}
+});
