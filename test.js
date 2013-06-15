@@ -48,6 +48,7 @@ describe('getLastMotion', function() {
 		'fa',
 		'f9',
 		'f_',
+		'f ',
 		'Fg',
 		'F2',
 		'F?',
