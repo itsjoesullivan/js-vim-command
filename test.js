@@ -80,13 +80,15 @@ describe('getLastMotion', function() {
 		']]',
 		'][',
 		'[[',
-		'[]'
-	
+		'[]',
+		'/foo\n'
 	];
 	for(var i in motions) {
 		var motion = motions[i]
 		it('catches ' + motion, (function() { 
-			var res = parser.getLastMotion(motion).value === motion; return function() { 
+			var command = parser.getLastMotion(motion);
+			var res = ( (command || {}).value || false) === motion; 
+			return function() { 
 				expect(res).equal(true);
 			}; 
 		})());

@@ -1,7 +1,4 @@
-var Parser = module.exports = function() {
-
-
-};
+var Parser = module.exports = function() { };
 
 /** Parse a command
 
@@ -77,7 +74,7 @@ text object motions:
 	( ) { } ]] [] [[ []
 
 */
-var motions = ['h','l','0','\\$','\\^','g_','\\|','\(?:f\|F\|t\|T\)\(\?\:\[\\S\]\)',';',',','k','j','\\+','-','_','G','e','E','w','W','b','B','ge','gE','\\(','\\)','\\{','\\}','\\]\\]','\\]\\[','\\[\\[','\\[\\]'];
+var motions = ['h','l','0','\\$','\\^','g_','\\|','\(?:f\|F\|t\|T\)\(\?\:\[\\S\]\)',';',',','k','j','\\+','-','_','G','e','E','w','W','b','B','ge','gE','\\(','\\)','\\{','\\}','\\]\\]','\\]\\[','\\[\\[','\\[\\]','\\/(?:\\S+)\\n'];
 var motionTest = new RegExp('\(\.\*\?\)\(' + motions.join('\|') + '\)\$');
 Parser.prototype.getLastMotion = function(command) {
 	var motion = motionTest.exec(command);	
