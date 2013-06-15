@@ -16,7 +16,7 @@ var Parser = require('vim-command-parser'),
 Input: command string
 
 ```javascript
-parser.parse('c3G')
+parser.parse('c3fa')
 ```
 
 Output: object
@@ -24,7 +24,7 @@ Output: object
 ```javascript
 {
 	description: '{operator}{count}{motion}',
-	value: ['c', 3, 'G']
+	value: ['c', 3, 'fa']
 }
 ```
 
