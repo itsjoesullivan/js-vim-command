@@ -81,7 +81,8 @@ describe('getLastMotion', function() {
 		'][',
 		'[[',
 		'[]',
-		'/foo\n'
+		'/foo\n',
+		'?foo\n'
 	];
 	for(var i in motions) {
 		var motion = motions[i]
