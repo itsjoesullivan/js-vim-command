@@ -1,4 +1,4 @@
-var Parser = module.exports = function() { };
+var Parser = function() {};
 
 /** Parse a command
 
@@ -28,7 +28,7 @@ Parser.prototype.parse = function(command) {
 		command.value.unshift(next.value);
 		command.prefix = next.prefix;
 	}
-	return command;
+	return command.description.length ? command : false;
 
 
 
@@ -99,4 +99,4 @@ Parser.prototype.getLastCount = function(command) {
 };
 
 
-
+module.exports = Parser;

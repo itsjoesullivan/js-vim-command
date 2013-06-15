@@ -137,4 +137,8 @@ describe('parse', function() {
 		expect(command.description).equal('{count}{operator}{motion}');
 	});
 
+	it('returns falsy when given i', function() {
+		expect(parse('i')).equal(false);
+	});
+
 });
