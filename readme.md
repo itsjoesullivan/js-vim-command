@@ -1,4 +1,4 @@
-#Vim Command Parser
+#Vim Command Parser 
 
 Vim's commands are powerful. This library is meant to parse those that fit a general syntax of:
 
