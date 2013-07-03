@@ -1,12 +1,13 @@
 {
   "name": "js-vim-command",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "Vim command parser",
   "main": "index.js",
   "dependencies": {
+  },
+  "devDependencies": {
     "chai": "~1.6.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "mocha"
   },
